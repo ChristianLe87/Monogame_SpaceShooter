@@ -10,5 +10,11 @@ namespace Shared
 
             public static readonly int FPS = 60;
         }
+
+        public class Content
+        {
+            public static readonly string Player = "Player_PNG_300x300";
+            public static readonly string Target = "Target_PNG_300x300";
+        }
     }
 }

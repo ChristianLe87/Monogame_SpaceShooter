@@ -16,9 +16,6 @@ namespace Shared
         Texture2D texture2D;
         Rectangle rectangle;
 
-        int canvasWidth = 500;
-        int canvasHeight = 500;
-
         public Game1()
         {
             // Content
@@ -56,7 +53,7 @@ namespace Shared
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: Code
-            texture2D = Tools.CreateColorTexture(Color.Pink);
+            texture2D = Tools.GetTexture(WK.Content.Player);
             rectangle = new Rectangle(250, 250, 20, 20);
         }
 
@@ -110,6 +107,17 @@ namespace Shared
             return newTexture;
         }
 
+        public static Texture2D GetTexture(string imageName, string folder = "")
+        {
+            string absolutePath = new DirectoryInfo(Path.Combine(Path.Combine(Game1.contentManager.RootDirectory, folder), $"{imageName}.png")).ToString();
+
+            FileStream fileStream = new FileStream(absolutePath, FileMode.Open);
+
+            var result = Texture2D.FromStream(Game1.graphicsDeviceManager.GraphicsDevice, fileStream);
+            fileStream.Dispose();
+
+            return result;
+        }
 
         internal static Vector2 MovePlayer(Vector2 position, int minPosition, int maxPosition, int moveSpeed)
         {
