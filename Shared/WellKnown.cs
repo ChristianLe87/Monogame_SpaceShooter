@@ -5,8 +5,8 @@ namespace Shared
     {
         public class Default
         {
-            public static readonly int CanvasWidth = 500;
-            public static readonly int CanvasHeight = 500;
+            public static readonly int CanvasWidth = 700;
+            public static readonly int CanvasHeight = 700;
 
             public static readonly int FPS = 60;
         }

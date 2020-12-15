@@ -13,8 +13,7 @@ namespace Shared
         public static ContentManager contentManager;
         public static SpriteBatch spriteBatch;
 
-        Texture2D texture2D;
-        Rectangle rectangle;
+        Player player;
 
         public Game1()
         {
@@ -44,38 +43,20 @@ namespace Shared
             };
             scenes[actualScene].Initialize(new Point(10, 15));*/
 
+            player = new Player();
+
             base.Initialize();
         }
 
 
-        protected override void LoadContent()
-        {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: Code
-            texture2D = Tools.GetTexture(WK.Content.Player);
-            rectangle = new Rectangle(250, 250, 20, 20);
-        }
-
-
-        protected override void UnloadContent()
-        {
-            // TODO: Code
-        }
-
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             // TODO: Code
-
-            if (true) this.IsMouseVisible = true;
-
-            Vector2 oldPosition = new Vector2(rectangle.X, rectangle.Y);
-            Vector2 newPosition = Tools.MovePlayer(oldPosition, 100, 100, 2);
-            rectangle = new Rectangle((int)newPosition.X, (int)newPosition.Y, rectangle.Width, rectangle.Height);
+            player.Update();
 
             base.Update(gameTime);
         }
@@ -88,7 +69,7 @@ namespace Shared
             spriteBatch.Begin();
 
             // TODO: Code
-            spriteBatch.Draw(texture2D, rectangle, Color.White);
+            player.Draw(spriteBatch);
 
             spriteBatch.End();
 
@@ -117,30 +98,6 @@ namespace Shared
             fileStream.Dispose();
 
             return result;
-        }
-
-        internal static Vector2 MovePlayer(Vector2 position, int minPosition, int maxPosition, int moveSpeed)
-        {
-            KeyboardState keyboardState = Keyboard.GetState();
-
-            if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
-            {
-                position.X -= moveSpeed;
-            }
-            else if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
-            {
-                position.X += moveSpeed;
-            }
-            else if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Up))
-            {
-                position.Y -= moveSpeed;
-            }
-            else if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
-            {
-                position.Y += moveSpeed;
-            }
-
-            return position;
         }
     }
 }
