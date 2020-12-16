@@ -27,7 +27,7 @@ namespace Shared
 
         public void Update()
         {
-            spriteRectangle = new Rectangle((int)spritePosition.X, (int)spritePosition.Y, texture2D.Width, texture2D.Height);
+            //spriteRectangle = new Rectangle((int)spritePosition.X, (int)spritePosition.Y, texture2D.Width, texture2D.Height);
             spritePosition = spriteVelocity + spritePosition;
             Origin_centerOfRotation = new Vector2(spriteRectangle.Width / 2, spriteRectangle.Height / 2);
 
