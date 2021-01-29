@@ -43,7 +43,7 @@ namespace Shared
             };
             scenes[actualScene].Initialize(new Point(10, 15));*/
 
-            player = new Player();
+            player = new Player(new Point(WK.Default.CanvasWidth / 2, WK.Default.CanvasHeight / 2));
 
             base.Initialize();
         }
