@@ -47,8 +47,8 @@ namespace Shared
 
         public void Update()
         {
-            spaceship.Update();
             target.Update();
+            spaceship.Update(target);
 
             //foreach(var asteroid in asteroids) asteroid.Update();
             //foreach(var bullet in bullets) bullet.Update();

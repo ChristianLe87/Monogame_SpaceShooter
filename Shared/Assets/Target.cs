@@ -9,6 +9,7 @@ namespace Shared
     {
         Texture2D texture2D;
         Rectangle rectangle;
+        public Point position { get => rectangle.Center; }
 
         public Target(Point CenterPosition, int Width, int Height)
         {
@@ -20,15 +21,17 @@ namespace Shared
         {
             KeyboardState keyboardState = Keyboard.GetState();
 
+            int targetMove = 3;
+
             if (keyboardState.IsKeyDown(Keys.Up) || keyboardState.IsKeyDown(Keys.W))
-                rectangle.Y--;
+                rectangle.Y-= targetMove;
             else if (keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.S))
-                rectangle.Y++;
+                rectangle.Y+= targetMove;
 
             if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
-                rectangle.X--;
+                rectangle.X-= targetMove;
             else if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
-                rectangle.X++;
+                rectangle.X+= targetMove;
         }
 
         public void Draw(SpriteBatch spriteBatch)
