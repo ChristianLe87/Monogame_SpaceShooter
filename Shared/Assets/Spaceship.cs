@@ -9,11 +9,13 @@ namespace Shared
         Texture2D texture2D;
         public Rectangle rectangle;
         public Point position { get => rectangle.Center; }
+        public int Health;
 
         public Spaceship(Point CenterPosition, int Width, int Height)
         {
             texture2D = Tools.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Spaceship);
             rectangle = new Rectangle(CenterPosition.X - (Width / 2), CenterPosition.Y - (Height / 2), Width, Height);
+            Health = 100;
         }
 
         public void Update(Target target)

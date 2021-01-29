@@ -12,6 +12,7 @@ namespace Shared
         List<Asteroid> asteroids;
         //List<Bullet> bullets;
         Label score;
+        HealthBar health;
         //Label time;
         //GameOverCanvas gameOverCanvas;
         AsteroidShooter asteroidShooter;
@@ -38,11 +39,20 @@ namespace Shared
             asteroids = new List<Asteroid>();
             //bullets = new List<Bullet>();
             score = new Label(
-                rectangle: new Rectangle(0,0,200, 50),
+                rectangle: new Rectangle(0, 0, 200, 50),
                 spriteFont: Tools.GenerateFont(Tools.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Font_16), chars: WK.Default.FontCharacters),
                 text: "Score: 0",
                 textAlignment: Label.TextAlignment.Midle_Center,
                 fontColor: Color.Red
+                );
+            health = new HealthBar(
+                topTexture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Green),
+                backTexture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Red),
+                rectangle: new Rectangle(WK.Default.CanvasWidth - 225, 25, 200, 25),
+                direction: Direction.Right,
+                maxVal: (uint)spaceship.Health,
+                reduceValue: 10,
+                startValue: (uint)spaceship.Health
                 );
             //time = new Label();
             //gameOverCanvas = new GameOverCanvas();
@@ -57,10 +67,10 @@ namespace Shared
             spaceship.Update(target);
 
             asteroids = asteroids.Where(x => x.isActive == true).ToList();
-            foreach(var asteroid in asteroids) asteroid.Update();
+            foreach (var asteroid in asteroids) asteroid.Update();
             //foreach(var bullet in bullets) bullet.Update();
 
-            foreach(var asteroid in asteroids)
+            foreach (var asteroid in asteroids)
             {
                 if (asteroid.rectangle.Intersects(spaceship.rectangle))
                 {
@@ -69,7 +79,11 @@ namespace Shared
                     scoreCount -= 10;
                     if (scoreCount < 0) scoreCount = 0;
 
+                    spaceship.Health -= 10;
+                    if (spaceship.Health < 0) spaceship.Health = 0;
+
                     score.Update($"Score: {scoreCount}");
+                    health.Reduce();
                 }
             }
             //time.Update();
@@ -84,10 +98,11 @@ namespace Shared
             spaceship.Draw(spriteBatch);
             target.Draw(spriteBatch);
 
-            foreach(var asteroid in asteroids) asteroid.Draw(spriteBatch);
+            foreach (var asteroid in asteroids) asteroid.Draw(spriteBatch);
             //foreach(var bullet in bullets) bullet.Draw(spriteBatch);
 
             score.Draw(spriteBatch);
+            health.Draw(spriteBatch);
             //time.Draw(spriteBatch);
 
             //if(gameState == GameState.GameOver) gameOverCanvas.Draw(spriteBatch);

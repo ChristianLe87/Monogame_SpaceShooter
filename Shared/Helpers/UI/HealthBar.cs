@@ -24,10 +24,6 @@ namespace Shared
             this.reduceValue = reduceValue;
         }
 
-        public void Update()
-        {
-        }
-
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(backTexture, rectangle, Color.White);
