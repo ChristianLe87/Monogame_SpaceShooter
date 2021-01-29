@@ -9,11 +9,11 @@ namespace Shared
         private Point targetPoint;
 
         private Texture2D texture2D { get; init; }
-        private Rectangle rectangle { get => new Rectangle(position.X - (texture2D.Width / 2), position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
+        public Rectangle rectangle { get => new Rectangle(position.X - (texture2D.Width / 2), position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
 
         private float timeCount;
 
-        public bool isActive { get; private set; }
+        public bool isActive { get; set; }
 
         public Asteroid(Point startPoint, Point targetPoint)
         {

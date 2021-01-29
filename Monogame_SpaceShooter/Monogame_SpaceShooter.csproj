@@ -23,6 +23,14 @@
       <Link>Content\Target_PNG_300x300.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="..\Shared\Content\MyFont_PNG_130x28.png">
+      <Link>Content\MyFont_PNG_130x28.png</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Shared\Content\MyFont_PNG_260x56.png">
+      <Link>Content\MyFont_PNG_260x56.png</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="..\Shared\Shared.projitems" Label="Shared" Condition="Exists('..\Shared\Shared.projitems')" />
 </Project>

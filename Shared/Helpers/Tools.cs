@@ -190,6 +190,11 @@ namespace Shared
             return result;
         }
 
-
+        public static int Clamp(int Min, int Max, int Number)
+        {
+            if (Number <= Min) return Min;
+            if (Number >= Max) return Max;
+            return Number;
+        }
     }
 }
