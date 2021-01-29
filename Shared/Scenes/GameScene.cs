@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -50,6 +50,7 @@ namespace Shared
             target.Update();
             spaceship.Update(target);
 
+            asteroids = asteroids.Where(x => x.isActive == true).ToList();
             foreach(var asteroid in asteroids) asteroid.Update();
             //foreach(var bullet in bullets) bullet.Update();
 

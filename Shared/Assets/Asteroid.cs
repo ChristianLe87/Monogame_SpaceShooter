@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Shared
@@ -9,15 +8,22 @@ namespace Shared
         private Point position;
         private Point targetPoint;
 
-        Texture2D texture2D;
-        Rectangle rectangle { get => new Rectangle(position.X - (texture2D.Width / 2), position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
+        private Texture2D texture2D { get; init; }
+        private Rectangle rectangle { get => new Rectangle(position.X - (texture2D.Width / 2), position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
+
+        private float timeCount;
+
+        public bool isActive { get; private set; }
 
         public Asteroid(Point startPoint, Point targetPoint)
         {
             this.position = startPoint;
             this.targetPoint = targetPoint;
 
-            texture2D = Tools.CreateCircleTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Brown, 50);
+            this.texture2D = Tools.CreateCircleTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Brown, 50);
+
+            this.timeCount = 0f;
+            this.isActive = true;
         }
 
         public void Update()
@@ -25,8 +31,13 @@ namespace Shared
             // Implementation
             {
                 MoveToward();
+
+                float maxTime = 15f;
+                if (timeCount > maxTime) isActive = false;
+
+                timeCount += 1f / WK.Default.FPS;
             }
-            
+
 
             // Helpers
             void MoveToward()
