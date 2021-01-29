@@ -9,12 +9,12 @@ namespace Shared
     {
         Spaceship spaceship;
         Target target;
-        //List<Asteroid> asteroids;
+        List<Asteroid> asteroids;
         //List<Bullet> bullets;
         //Label score;
         //Label time;
         //GameOverCanvas gameOverCanvas;
-        //AsteroidShooter asteroidShooter;
+        AsteroidShooter asteroidShooter;
         GameState gameState;
         //int scoreCount;
 
@@ -35,12 +35,12 @@ namespace Shared
                                 Width: 50,
                                 Height: 50
                                 );
-            //asteroids = new List<Asteroid>();
+            asteroids = new List<Asteroid>();
             //bullets = new List<Bullet>();
             //score = new Label();
             //time = new Label();
             //gameOverCanvas = new GameOverCanvas();
-            //asteroidShooter = new AsteroidShooter();
+            asteroidShooter = new AsteroidShooter(1);
             gameState = GameState.Play;
             //scoreCount = 0;
         }
@@ -50,7 +50,7 @@ namespace Shared
             target.Update();
             spaceship.Update(target);
 
-            //foreach(var asteroid in asteroids) asteroid.Update();
+            foreach(var asteroid in asteroids) asteroid.Update();
             //foreach(var bullet in bullets) bullet.Update();
 
             //score.Update();
@@ -58,7 +58,7 @@ namespace Shared
 
             //if(gameState == GameState.GameOver) gameOverCanvas.Update();
 
-            //asteroidShooter.Update();
+            asteroidShooter.Update(asteroids, spaceship.position);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -66,13 +66,14 @@ namespace Shared
             spaceship.Draw(spriteBatch);
             target.Draw(spriteBatch);
 
-            //foreach(var asteroid in asteroids) asteroid.Draw(spriteBatch);
+            foreach(var asteroid in asteroids) asteroid.Draw(spriteBatch);
             //foreach(var bullet in bullets) bullet.Draw(spriteBatch);
 
             //score.Draw(spriteBatch);
             //time.Draw(spriteBatch);
 
             //if(gameState == GameState.GameOver) gameOverCanvas.Draw(spriteBatch);
+            asteroidShooter.Draw(spriteBatch);
         }
     }
 

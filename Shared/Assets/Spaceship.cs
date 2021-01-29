@@ -8,6 +8,7 @@ namespace Shared
     {
         Texture2D texture2D;
         Rectangle rectangle;
+        public Point position { get => rectangle.Center; }
 
         public Spaceship(Point CenterPosition, int Width, int Height)
         {
