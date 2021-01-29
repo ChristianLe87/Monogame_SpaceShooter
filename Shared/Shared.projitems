@@ -10,7 +10,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Game1.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)WellKnown.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\About.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\Menu.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Tools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\GameScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\Intro.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\WellKnown.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Assets\Player2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Assets\Spaceship.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Interfaces\IScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\UI\Button.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\UI\HealthBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\UI\Label.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Assets\Asteroid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Assets\AsteroidShooter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Assets\Bullet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Assets\GameOverCanvas.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Assets\Target.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Scenes\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Assets\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Helpers\Interfaces\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Helpers\UI\" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,4 @@
-﻿using System;
-namespace Shared
+﻿namespace Shared
 {
     public class WK
     {
@@ -13,7 +12,7 @@ namespace Shared
 
         public class Content
         {
-            public static readonly string Player = "Player_PNG_300x300";
+            public static readonly string Spaceship = "Player_PNG_300x300";
             public static readonly string Target = "Target_PNG_300x300";
         }
     }

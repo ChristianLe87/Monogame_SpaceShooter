@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Shared
 {
-    public class Player
+    public class Player2
     {
 
         Texture2D texture2D;
@@ -15,9 +15,9 @@ namespace Shared
 
 
 
-        public Player(Point position)
+        public Player2(Point position)
         {
-            texture2D = Tools.GetTexture(WK.Content.Player);
+            texture2D = Tools.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Spaceship);
             rectangle = new Rectangle(position.X, position.Y, 100, 100);
         }
 
