@@ -32,11 +32,21 @@ namespace Shared
                 rectangle.X-= targetMove;
             else if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
                 rectangle.X+= targetMove;
+
+            rectangle.X = Clamp(0, WK.Default.CanvasWidth, rectangle.X);
+            rectangle.Y = Clamp(0, WK.Default.CanvasHeight, rectangle.Y);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture2D, rectangle, Color.White);
+        }
+
+        private int Clamp(int Min, int Max, int Number)
+        {
+            if (Number <= Min) return Min;
+            if (Number >= Max) return Max;
+            return Number;
         }
     }
 }
