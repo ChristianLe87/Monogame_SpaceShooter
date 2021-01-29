@@ -7,12 +7,13 @@ namespace Shared
 {
     public class AsteroidShooter
     {
-        Texture2D texture2D;
+        Texture2D texture2D { get; init; }
         Point position;
         Point target;
-        Point[] points;
+        Point[] points { get; init; }
         int shootInterval { get; init; }
         float ElapsedTimeOfShootInterval;
+        PathPoint targetPathPoint;
 
         public AsteroidShooter(int IntervalOfShootingAsterodisInSeconds)
         {
@@ -27,34 +28,23 @@ namespace Shared
             };
             shootInterval = IntervalOfShootingAsterodisInSeconds;
             ElapsedTimeOfShootInterval = 0;
+            targetPathPoint = PathPoint.DownLeft;
         }
 
         public void Update(List<Asteroid> asteroids, Point asteroidTarget)
         {
             // Implementation
             {
-                target = points[1];
+                SetTargetPathPoint();
                 MoveTowardTarget();
-
-                if (ElapsedTimeOfShootInterval > shootInterval)
-                {
-                    asteroids.Add(new Asteroid(
-                                        startPoint: position,
-                                        targetPoint: asteroidTarget
-                                        ));
-
-                    ElapsedTimeOfShootInterval = 0;
-                }
-                else
-                {
-                    ElapsedTimeOfShootInterval += 1f / WK.Default.FPS;
-                }
+                ShootAsteroid();
             }
-            
 
+
+            // Helpers
             void MoveTowardTarget()
             {
-                int maxDistanceBetweenTargetAndSpaceship = 20;
+                int maxDistanceBetweenTargetAndSpaceship = 0;
 
                 if (position.X - (target.X - maxDistanceBetweenTargetAndSpaceship) < 0)
                     position.X++;
@@ -66,11 +56,71 @@ namespace Shared
                 else if (position.Y - (target.Y + maxDistanceBetweenTargetAndSpaceship) > 0)
                     position.Y--;
             }
+
+            void ShootAsteroid()
+            {
+                if (ElapsedTimeOfShootInterval > shootInterval)
+                {
+                    asteroids.Add(new Asteroid(startPoint: position, targetPoint: asteroidTarget));
+                    ElapsedTimeOfShootInterval = 0;
+                }
+                else
+                {
+                    ElapsedTimeOfShootInterval += 1f / WK.Default.FPS;
+                }
+            }
+
+            void SetTargetPathPoint()
+            {
+                switch (targetPathPoint)
+                {
+                    case PathPoint.TopLeft:
+                        target = points[0];
+                        if (position.X == target.X && position.Y == target.Y)
+                        {
+                            targetPathPoint = PathPoint.DownLeft;
+                        }
+                        break;
+                    case PathPoint.DownLeft:
+                        target = points[1];
+                        if (position.X == target.X && position.Y == target.Y)
+                        {
+                            targetPathPoint = PathPoint.DounRight;
+                        }
+                        break;
+                    case PathPoint.DounRight:
+                        target = points[2];
+                        if (position.X == target.X && position.Y == target.Y)
+                        {
+                            targetPathPoint = PathPoint.DownLeft;
+                            if (position.X == target.X && position.Y == target.Y)
+                            {
+                                targetPathPoint = PathPoint.TopRight;
+                            }
+                        }
+                        break;
+                    case PathPoint.TopRight:
+                        target = points[3];
+                        if (position.X == target.X && position.Y == target.Y)
+                        {
+                            targetPathPoint = PathPoint.TopLeft;
+                        }
+                        break;
+                }
+            }
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture2D, new Rectangle(position.X, position.Y, texture2D.Width, texture2D.Height), Color.White);
+        }
+
+        private enum PathPoint
+        {
+            TopLeft,
+            DownLeft,
+            DounRight,
+            TopRight
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Shared
             //score = new Label();
             //time = new Label();
             //gameOverCanvas = new GameOverCanvas();
-            asteroidShooter = new AsteroidShooter(1);
+            asteroidShooter = new AsteroidShooter(5);
             gameState = GameState.Play;
             //scoreCount = 0;
         }
