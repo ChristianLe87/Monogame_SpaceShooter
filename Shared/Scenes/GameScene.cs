@@ -59,7 +59,7 @@ namespace Shared
             //time = new Label();
             gameOverCanvas = new GameOverCanvas(new Rectangle(200, 200, 300, 300));
             asteroidShooter = new AsteroidShooter(5);
-            gameState = GameState.Play;
+            gameState = GameState.GameOver;
             scoreCount = 0;
         }
 
@@ -140,19 +140,28 @@ namespace Shared
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spaceship.Draw(spriteBatch);
-            target.Draw(spriteBatch);
+            switch (gameState)
+            {
+                case GameState.Play:
+                    spaceship.Draw(spriteBatch);
+                    target.Draw(spriteBatch);
 
-            foreach (var asteroid in asteroids) asteroid.Draw(spriteBatch);
-            foreach(var bullet in bullets) bullet.Draw(spriteBatch);
+                    foreach (var asteroid in asteroids) asteroid.Draw(spriteBatch);
+                    foreach (var bullet in bullets) bullet.Draw(spriteBatch);
 
-            score.Draw(spriteBatch);
-            health.Draw(spriteBatch);
-            //time.Draw(spriteBatch);
-
-            asteroidShooter.Draw(spriteBatch);
-
-            if(gameState == GameState.GameOver) gameOverCanvas.Draw(spriteBatch);
+                    score.Draw(spriteBatch);
+                    health.Draw(spriteBatch);
+                    //time.Draw(spriteBatch);
+                    asteroidShooter.Draw(spriteBatch);
+                    break;
+                case GameState.Pause:
+                    break;
+                case GameState.GameOver:
+                    gameOverCanvas.Draw(spriteBatch);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

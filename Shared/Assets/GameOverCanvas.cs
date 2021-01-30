@@ -7,6 +7,7 @@ namespace Shared
     public class GameOverCanvas
     {
         Rectangle rectangle;
+        Texture2D background;
         Label text;
         Button goToMenu;
         Button playAgain;
@@ -14,18 +15,19 @@ namespace Shared
         public GameOverCanvas(Rectangle rectangle)
         {
             this.rectangle = rectangle;
+            this.background = Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Pink);
             this.text = new Label(
                 rectangle: rectangle,
                 spriteFont: Tools.GenerateFont(
                     texture2D: Tools.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Font_16),
                     chars: WK.Default.FontCharacters),
                 text: "Game Over!",
-                textAlignment: Label.TextAlignment.Midle_Center,
+                textAlignment: Label.TextAlignment.Top_Center,
                 fontColor: Color.White,
-                texture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Transparent, Width: rectangle.Width, Height: rectangle.Height),
+                //texture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Transparent, Width: rectangle.Width, Height: rectangle.Height),
                 lineSpacing: 10);
             this.goToMenu = new Button(
-                                    rectangle: new Rectangle(250, 400, 150, 50),
+                                    rectangle: new Rectangle(300, 300, 150, 50),
                                     text: "Go to Menu",
                                     defaultTexture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.LightGray),
                                     mouseOverTexture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Gray),
@@ -34,7 +36,7 @@ namespace Shared
                                     ButtonID: "goToMenu");
 
             this.playAgain = new Button(
-                                    rectangle: new Rectangle(250, 600, 150, 50),
+                                    rectangle: new Rectangle(300, 400, 150, 50),
                                     text: "Play again",
                                     defaultTexture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.LightGray),
                                     mouseOverTexture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Gray),
@@ -65,6 +67,7 @@ namespace Shared
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(background, rectangle, Color.White);
             goToMenu.Draw(spriteBatch);
             playAgain.Draw(spriteBatch);
             text.Draw(spriteBatch);
