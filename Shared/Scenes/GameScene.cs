@@ -10,7 +10,7 @@ namespace Shared
         Spaceship spaceship;
         Target target;
         List<Asteroid> asteroids;
-        //List<Bullet> bullets;
+        List<Bullet> bullets;
         Label score;
         HealthBar health;
         //Label time;
@@ -37,7 +37,7 @@ namespace Shared
                                 Height: 50
                                 );
             asteroids = new List<Asteroid>();
-            //bullets = new List<Bullet>();
+            bullets = new List<Bullet>();
             score = new Label(
                 rectangle: new Rectangle(0, 0, 200, 50),
                 spriteFont: Tools.GenerateFont(Tools.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Font_16), chars: WK.Default.FontCharacters),
@@ -64,14 +64,32 @@ namespace Shared
         public void Update()
         {
             target.Update();
-            spaceship.Update(target);
+            spaceship.Update(bullets, target);
 
             asteroids = asteroids.Where(x => x.isActive == true).ToList();
+            bullets = bullets.Where(x => x.isActive == true).ToList();
+
             foreach (var asteroid in asteroids) asteroid.Update();
-            //foreach(var bullet in bullets) bullet.Update();
+            foreach(var bullet in bullets) bullet.Update();
+
 
             foreach (var asteroid in asteroids)
             {
+
+                // destroy asteroids when bullet touch
+                foreach (var bullet in bullets)
+                {
+                    if (bullet.rectangle.Intersects(asteroid.rectangle))
+                    {
+                        asteroid.isActive = false;
+                        bullet.isActive = false;
+
+                        scoreCount += 10;
+                    }
+                }
+
+
+                // destroy asteroids when spaceship touch
                 if (asteroid.rectangle.Intersects(spaceship.rectangle))
                 {
                     asteroid.isActive = false;
@@ -99,7 +117,7 @@ namespace Shared
             target.Draw(spriteBatch);
 
             foreach (var asteroid in asteroids) asteroid.Draw(spriteBatch);
-            //foreach(var bullet in bullets) bullet.Draw(spriteBatch);
+            foreach(var bullet in bullets) bullet.Draw(spriteBatch);
 
             score.Draw(spriteBatch);
             health.Draw(spriteBatch);
