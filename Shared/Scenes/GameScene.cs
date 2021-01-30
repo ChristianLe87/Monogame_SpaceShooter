@@ -27,6 +27,8 @@ namespace Shared
 
         public void Initialize()
         {
+            Game1.isMouseVisible = false;
+
             spaceship = new Spaceship(
                                 CenterPosition: new Point(350, 350),
                                 Width: 50,
@@ -59,7 +61,7 @@ namespace Shared
             //time = new Label();
             gameOverCanvas = new GameOverCanvas(new Rectangle(200, 200, 300, 300));
             asteroidShooter = new AsteroidShooter(5);
-            gameState = GameState.GameOver;
+            gameState = GameState.Play;
             scoreCount = 0;
         }
 

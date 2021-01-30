@@ -17,11 +17,11 @@ namespace Shared
         SpriteBatch spriteBatch;
 
         public static ContentManager contentManager;
+        public static bool isMouseVisible;
 
         private static Dictionary<string, IScene> scenes;
-        private static string actualScene = WK.Scene.GameScene;
+        private static string actualScene = WK.Scene.Menu;
 
-        public static bool isMouseVisible = false;
 
         public Game1()
         {
@@ -45,13 +45,14 @@ namespace Shared
             //base.Window.ClientBounds
             scenes = new Dictionary<string, IScene>()
             {
-                {WK.Scene.GameScene, new GameScene() }
+                { WK.Scene.Menu, new Menu() },
+                { WK.Scene.GameScene, new GameScene() }
             };
 
             // others
-            if (false)
+            if (true)
             {
-                base.Window.IsBorderless = true;
+                //base.Window.IsBorderless = true;
                 Rectangle gameWindow = base.Window.ClientBounds;
                 base.Window.Title = "Hello Window";
                 base.IsMouseVisible = isMouseVisible;

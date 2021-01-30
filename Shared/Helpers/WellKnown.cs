@@ -28,9 +28,8 @@
 
         public class Scene
         {
+            public static readonly string Menu = "Menu";
             public static readonly string GameScene = "GameScene";
-            public static readonly string Menu = "GameScene";
-
         }
     }
 }
