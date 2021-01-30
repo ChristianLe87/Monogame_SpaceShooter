@@ -1,22 +1,73 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Shared
 {
     public class GameOverCanvas
     {
-        public GameOverCanvas()
+        Rectangle rectangle;
+        Label text;
+        Button goToMenu;
+        Button playAgain;
+
+        public GameOverCanvas(Rectangle rectangle)
         {
+            this.rectangle = rectangle;
+            this.text = new Label(
+                rectangle: rectangle,
+                spriteFont: Tools.GenerateFont(
+                    texture2D: Tools.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Font_16),
+                    chars: WK.Default.FontCharacters),
+                text: "Game Over!",
+                textAlignment: Label.TextAlignment.Midle_Center,
+                fontColor: Color.White,
+                texture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Transparent, Width: rectangle.Width, Height: rectangle.Height),
+                lineSpacing: 10);
+            this.goToMenu = new Button(
+                                    rectangle: new Rectangle(250, 400, 150, 50),
+                                    text: "Go to Menu",
+                                    defaultTexture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.LightGray),
+                                    mouseOverTexture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Gray),
+                                    spriteFont: Tools.GenerateFont(Tools.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Font_16), WK.Default.FontCharacters),
+                                    fontColor: Color.Black,
+                                    ButtonID: "goToMenu");
+
+            this.playAgain = new Button(
+                                    rectangle: new Rectangle(250, 600, 150, 50),
+                                    text: "Play again",
+                                    defaultTexture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.LightGray),
+                                    mouseOverTexture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Gray),
+                                    spriteFont: Tools.GenerateFont(Tools.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Font_16), WK.Default.FontCharacters),
+                                    fontColor: Color.Black,
+                                    ButtonID: "playAgain");
+
+
         }
 
         public void Update()
         {
-            throw new NotImplementedException();
+            goToMenu.Update(goToMenu_Delegate);
+            playAgain.Update(playAgain_Delegate);
+
+            void goToMenu_Delegate()
+            {
+                Console.WriteLine("Go to menu");
+                Game1.ChangeScene(WK.Scene.Menu);
+            }
+
+            void playAgain_Delegate()
+            {
+                Console.WriteLine("Play again");
+                Game1.ChangeScene(WK.Scene.GameScene);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            goToMenu.Draw(spriteBatch);
+            playAgain.Draw(spriteBatch);
+            text.Draw(spriteBatch);
         }
     }
 }

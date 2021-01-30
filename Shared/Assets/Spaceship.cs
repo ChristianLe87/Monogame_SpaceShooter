@@ -28,6 +28,7 @@ namespace Shared
             {
                 MoveTowardTarget();
                 Shoot();
+                ChecIfGameOver();
             }
 
             // Helpers
@@ -56,7 +57,12 @@ namespace Shared
                 }
 
                 lastKeyboardState = keyboardState;
-                
+            }
+
+            void ChecIfGameOver()
+            {
+                if (Health <= 0)
+                    GameScene.gameState = GameState.GameOver;
             }
         }
 

@@ -18,8 +18,10 @@ namespace Shared
 
         public static ContentManager contentManager;
 
-        Dictionary<string, IScene> scenes;
-        string actualScene = "GameScene";
+        private static Dictionary<string, IScene> scenes;
+        private static string actualScene = WK.Scene.GameScene;
+
+        public static bool isMouseVisible = false;
 
         public Game1()
         {
@@ -43,7 +45,7 @@ namespace Shared
             //base.Window.ClientBounds
             scenes = new Dictionary<string, IScene>()
             {
-                {"GameScene", new GameScene() }
+                {WK.Scene.GameScene, new GameScene() }
             };
 
             // others
@@ -52,7 +54,7 @@ namespace Shared
                 base.Window.IsBorderless = true;
                 Rectangle gameWindow = base.Window.ClientBounds;
                 base.Window.Title = "Hello Window";
-                base.IsMouseVisible = true;
+                base.IsMouseVisible = isMouseVisible;
             }
 
             // Initialize objects (scores, values, items, etc)
@@ -73,12 +75,14 @@ namespace Shared
 
         protected override void Update(GameTime gameTime)
         {
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
 
             // TODO: Code
-            scenes[actualScene].Update();
+            base.IsMouseVisible = Game1.isMouseVisible;
+            Game1.scenes[actualScene].Update();
 
             base.Update(gameTime);
         }
@@ -90,15 +94,21 @@ namespace Shared
             base.GraphicsDevice.Clear(Color.CornflowerBlue);
 
 
-            this.spriteBatch.Begin(sortMode: SpriteSortMode.BackToFront, blendState: BlendState.AlphaBlend);
-            //this.spriteBatch.Begin();
+            //this.spriteBatch.Begin(sortMode: SpriteSortMode.BackToFront, blendState: BlendState.AlphaBlend);
+            this.spriteBatch.Begin();
 
             // TODO: Code
-            this.scenes[actualScene].Draw(spriteBatch);
+            Game1.scenes[actualScene].Draw(spriteBatch);
 
             this.spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public static void ChangeScene(string goToScene)
+        {
+            Game1.actualScene = goToScene;
+            Game1.scenes[actualScene].Initialize();
         }
     }
 }

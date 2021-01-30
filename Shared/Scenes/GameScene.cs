@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Shared
 {
@@ -14,9 +15,9 @@ namespace Shared
         Label score;
         HealthBar health;
         //Label time;
-        //GameOverCanvas gameOverCanvas;
+        GameOverCanvas gameOverCanvas;
         AsteroidShooter asteroidShooter;
-        GameState gameState;
+        public static GameState gameState;
         int scoreCount;
 
         public GameScene()
@@ -43,7 +44,8 @@ namespace Shared
                 spriteFont: Tools.GenerateFont(Tools.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Font_16), chars: WK.Default.FontCharacters),
                 text: "Score: 0",
                 textAlignment: Label.TextAlignment.Midle_Center,
-                fontColor: Color.Red
+                fontColor: Color.Red,
+                lineSpacing: 10
                 );
             health = new HealthBar(
                 topTexture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Green),
@@ -55,7 +57,7 @@ namespace Shared
                 startValue: (uint)spaceship.Health
                 );
             //time = new Label();
-            //gameOverCanvas = new GameOverCanvas();
+            gameOverCanvas = new GameOverCanvas(new Rectangle(200, 200, 300, 300));
             asteroidShooter = new AsteroidShooter(5);
             gameState = GameState.Play;
             scoreCount = 0;
@@ -63,54 +65,77 @@ namespace Shared
 
         public void Update()
         {
-            target.Update();
-            spaceship.Update(bullets, target);
-
-            asteroids = asteroids.Where(x => x.isActive == true).ToList();
-            bullets = bullets.Where(x => x.isActive == true).ToList();
-
-            foreach (var asteroid in asteroids) asteroid.Update();
-            foreach(var bullet in bullets) bullet.Update();
-
-
-            foreach (var asteroid in asteroids)
-            {
-
-                // destroy asteroids when bullet touch
-                foreach (var bullet in bullets)
+            // gameover mode
+            /*{
+                KeyboardState keyboardState = Keyboard.GetState();
+                if (keyboardState.IsKeyDown(Keys.P))
                 {
-                    if (bullet.rectangle.Intersects(asteroid.rectangle))
-                    {
-                        asteroid.isActive = false;
-                        bullet.isActive = false;
-
-                        scoreCount += 15;
-
-                        score.Update($"Score: {scoreCount}");
-                    }
-                }
-
-
-                // destroy asteroids when spaceship touch
-                if (asteroid.rectangle.Intersects(spaceship.rectangle))
-                {
-                    asteroid.isActive = false;
-
-                    scoreCount -= 10;
-                    if (scoreCount < 0) scoreCount = 0;
-
                     spaceship.Health -= 10;
-                    if (spaceship.Health < 0) spaceship.Health = 0;
-
-                    score.Update($"Score: {scoreCount}");
                     health.Reduce();
                 }
+            }*/
+
+            switch (gameState)
+            {
+                case GameState.Play:
+                    target.Update();
+                    spaceship.Update(bullets, target);
+
+                    asteroids = asteroids.Where(x => x.isActive == true).ToList();
+                    bullets = bullets.Where(x => x.isActive == true).ToList();
+
+                    foreach (var asteroid in asteroids)
+                        asteroid.Update();
+
+                    foreach (var bullet in bullets)
+                        bullet.Update();
+
+
+                    foreach (var asteroid in asteroids)
+                    {
+                        // destroy asteroids when bullet touch
+                        foreach (var bullet in bullets)
+                        {
+                            if (bullet.rectangle.Intersects(asteroid.rectangle))
+                            {
+                                asteroid.isActive = false;
+                                bullet.isActive = false;
+
+                                scoreCount += 15;
+
+                                score.Update($"Score: {scoreCount}");
+                            }
+                        }
+
+
+                        // destroy asteroids when spaceship touch
+                        if (asteroid.rectangle.Intersects(spaceship.rectangle))
+                        {
+                            asteroid.isActive = false;
+
+                            scoreCount -= 10;
+                            if (scoreCount < 0) scoreCount = 0;
+
+                            spaceship.Health -= 10;
+                            if (spaceship.Health < 0) spaceship.Health = 0;
+
+                            score.Update($"Score: {scoreCount}");
+                            health.Reduce();
+                        }
+                    }
+                    //time.Update();
+                    asteroidShooter.Update(asteroids, spaceship.position);
+                    break;
+                case GameState.Pause:
+                    break;
+                case GameState.GameOver:
+                    gameOverCanvas.Update();
+                    Game1.isMouseVisible = true;
+                    break;
+                default:
+                    Game1.ChangeScene(WK.Scene.Menu);
+                    break;
             }
-            //time.Update();
-
-            //if(gameState == GameState.GameOver) gameOverCanvas.Update();
-
-            asteroidShooter.Update(asteroids, spaceship.position);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -125,12 +150,13 @@ namespace Shared
             health.Draw(spriteBatch);
             //time.Draw(spriteBatch);
 
-            //if(gameState == GameState.GameOver) gameOverCanvas.Draw(spriteBatch);
             asteroidShooter.Draw(spriteBatch);
+
+            if(gameState == GameState.GameOver) gameOverCanvas.Draw(spriteBatch);
         }
     }
 
-    enum GameState
+    public enum GameState
     {
         Play,
         Pause,

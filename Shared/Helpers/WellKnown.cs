@@ -25,5 +25,12 @@
             public static readonly string Font_16 = "MyFont_PNG_260x56";
             public static readonly string Font_7 = "MyFont_PNG_130x28";
         }
+
+        public class Scene
+        {
+            public static readonly string GameScene = "GameScene";
+            public static readonly string Menu = "GameScene";
+
+        }
     }
 }
