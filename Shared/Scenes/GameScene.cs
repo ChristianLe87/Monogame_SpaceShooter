@@ -84,7 +84,9 @@ namespace Shared
                         asteroid.isActive = false;
                         bullet.isActive = false;
 
-                        scoreCount += 10;
+                        scoreCount += 15;
+
+                        score.Update($"Score: {scoreCount}");
                     }
                 }
 
