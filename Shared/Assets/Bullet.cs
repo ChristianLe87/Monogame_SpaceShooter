@@ -6,8 +6,8 @@ namespace Shared
     public class Bullet
     {
         Texture2D texture2D;
-        public Rectangle rectangle;
-        public Point position { get => rectangle.Center; }
+        public Rectangle rectangle { get=> new Rectangle(position.X - (texture2D.Width / 2), position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
+        Point position;
         private Point targetPoint;
         public int Health;
         private float timeCount;
@@ -16,7 +16,7 @@ namespace Shared
         public Bullet(Point startPoint, Point targetPoint)
         {
             this.texture2D = Tools.Texture.CreateCircleTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Black, 10);
-            this.rectangle = new Rectangle(startPoint.X - texture2D.Width/2, startPoint.Y - texture2D.Height / 2, texture2D.Width, texture2D.Height);
+            this.position = startPoint;
             this.targetPoint = targetPoint;
             this.timeCount = 0f;
             this.isActive = true;
@@ -26,27 +26,11 @@ namespace Shared
         {
             // Implementation
             {
-                MoveTowardTarget();
+                position = Tools.Other.MoveTowards(position, targetPoint, 3, 5);
                 TimeToDestroy();
             }
 
             // Helpers
-            void MoveTowardTarget()
-            {
-                int maxDistanceBetweenTargetAndSpaceship = 3;
-                int bulletSpeed = 5;
-
-                if (rectangle.Center.X - (targetPoint.X - maxDistanceBetweenTargetAndSpaceship) < 0)
-                    rectangle.X += bulletSpeed;
-                else if (rectangle.Center.X - (targetPoint.X + maxDistanceBetweenTargetAndSpaceship) > 0)
-                    rectangle.X -= bulletSpeed;
-
-                if (rectangle.Center.Y - (targetPoint.Y - maxDistanceBetweenTargetAndSpaceship) < 0)
-                    rectangle.Y += bulletSpeed;
-                else if (rectangle.Center.Y - (targetPoint.Y + maxDistanceBetweenTargetAndSpaceship) > 0)
-                    rectangle.Y -= bulletSpeed;
-            }
-
             void TimeToDestroy()
             {
                 timeCount += 1f / WK.Default.FPS;

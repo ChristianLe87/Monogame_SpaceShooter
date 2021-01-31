@@ -212,17 +212,65 @@ namespace Shared
             /// </summary>
             public static Point MoveTowards(Point startPoint, Point endPoint, int maxAproximation, int steps)
             {
-                if (startPoint.X - (endPoint.X - maxAproximation) < 0)
-                    startPoint.X += steps;
-                else if (startPoint.X - (endPoint.X + maxAproximation) > 0)
-                    startPoint.X -= steps;
+                // Implementation
+                {
+                    if (!true)
+                    {
+                        Vector2 sp = startPoint.ToVector2();
+                        Vector2 ep = endPoint.ToVector2();
 
-                if (startPoint.Y - (endPoint.Y - maxAproximation) < 0)
-                    startPoint.Y += steps;
-                else if (startPoint.Y - (endPoint.Y + maxAproximation) > 0)
-                    startPoint.Y -= steps;
+                        // target is right
+                        if (endPoint.X - startPoint.X > 0)
+                        {
+                            // is up
+                            if (endPoint.Y - startPoint.Y < 0)
+                            {
+                                startPoint.X += steps;
+                                startPoint.Y += (int)Pitagoras_y(1, startPoint.X);
+                            }
+                            // is down
+                            else if (endPoint.Y - startPoint.Y > 0)
+                            {
 
-                return startPoint;
+                            }
+                        }
+                        // target is left
+                        else if (endPoint.X - startPoint.X < 0)
+                        {
+                            // is up
+                            if (endPoint.Y - startPoint.Y < 0)
+                            {
+
+                            }
+                            // is down
+                            else if (endPoint.Y - startPoint.Y > 0)
+                            {
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (startPoint.X - (endPoint.X - maxAproximation) < 0)
+                            startPoint.X += steps;
+                        else if (startPoint.X - (endPoint.X + maxAproximation) > 0)
+                            startPoint.X -= steps;
+
+                        if (startPoint.Y - (endPoint.Y - maxAproximation) < 0)
+                            startPoint.Y += steps;
+                        else if (startPoint.Y - (endPoint.Y + maxAproximation) > 0)
+                            startPoint.Y -= steps;
+                    }
+
+                    return startPoint;
+                }
+
+                // Helpers
+                float Pitagoras_y(float r, float x)
+                {
+                    // y = (r^2 - x^2)^(1/2)
+                    return (float)Math.Sqrt(((r * r) - (x * x)));
+                }
             }
         }
     }
