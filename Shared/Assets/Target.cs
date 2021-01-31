@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -8,40 +7,48 @@ namespace Shared
     public class Target
     {
         Texture2D texture2D;
-        Rectangle rectangle;
-        public Point position { get => rectangle.Center; }
+        public Rectangle rectangle { get => new Rectangle(position.X - (texture2D.Width / 2), position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
+        Point position;
 
-        public Target(Point CenterPosition, int Width, int Height)
+        public Target(Point CenterPosition)
         {
-            texture2D = Tools.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Target);
-            rectangle = new Rectangle(CenterPosition.X - (Width / 2), CenterPosition.Y - (Height / 2), Width, Height);
+            //texture2D = Tools.Texture.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Target);
+            texture2D = Tools.Texture.CreateCircleTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Black, 25);
+            position = CenterPosition;
         }
 
         public void Update()
         {
-            KeyboardState keyboardState = Keyboard.GetState();
+            // Implementation
+            {
+                Move();
+            }
 
-            int targetMove = 3;
+            // Helpers
+            void Move()
+            {
+                KeyboardState keyboardState = Keyboard.GetState();
 
-            if (keyboardState.IsKeyDown(Keys.Up) || keyboardState.IsKeyDown(Keys.W))
-                rectangle.Y-= targetMove;
-            else if (keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.S))
-                rectangle.Y+= targetMove;
+                int targetMove = 3;
 
-            if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
-                rectangle.X-= targetMove;
-            else if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
-                rectangle.X+= targetMove;
+                if (keyboardState.IsKeyDown(Keys.Up) || keyboardState.IsKeyDown(Keys.W))
+                    position.Y -= targetMove;
+                else if (keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.S))
+                    position.Y += targetMove;
 
-            rectangle.X = Tools.Clamp(0, WK.Default.CanvasWidth, rectangle.X);
-            rectangle.Y = Tools.Clamp(0, WK.Default.CanvasHeight, rectangle.Y);
+                if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
+                    position.X -= targetMove;
+                else if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
+                    position.X += targetMove;
+
+                position.X = Tools.Other.Clamp(0, WK.Default.CanvasWidth, position.X);
+                position.Y = Tools.Other.Clamp(0, WK.Default.CanvasHeight, position.Y);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture2D, rectangle, Color.White);
         }
-
-
     }
 }

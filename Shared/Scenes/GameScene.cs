@@ -29,29 +29,21 @@ namespace Shared
         {
             Game1.isMouseVisible = false;
 
-            spaceship = new Spaceship(
-                                CenterPosition: new Point(350, 350),
-                                Width: 50,
-                                Height: 50
-                                );
-            target = new Target(
-                                CenterPosition: new Point(550, 350),
-                                Width: 50,
-                                Height: 50
-                                );
+            spaceship = new Spaceship(CenterPosition: new Point(350, 350));
+            target = new Target(CenterPosition: new Point(550, 350));
             asteroids = new List<Asteroid>();
             bullets = new List<Bullet>();
             score = new Label(
                 rectangle: new Rectangle(0, 0, 200, 50),
-                spriteFont: Tools.GenerateFont(Tools.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Font_16), chars: WK.Default.FontCharacters),
+                spriteFont: Tools.Font.GenerateFont(Tools.Texture.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Font_16), chars: WK.Default.FontCharacters),
                 text: "Score: 0",
                 textAlignment: Label.TextAlignment.Midle_Center,
                 fontColor: Color.Red,
                 lineSpacing: 10
                 );
             health = new HealthBar(
-                topTexture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Green),
-                backTexture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Red),
+                topTexture: Tools.Texture.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Green),
+                backTexture: Tools.Texture.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Red),
                 rectangle: new Rectangle(WK.Default.CanvasWidth - 225, 25, 200, 25),
                 direction: Direction.Right,
                 maxVal: (uint)spaceship.Health,
@@ -126,7 +118,7 @@ namespace Shared
                         }
                     }
                     //time.Update();
-                    asteroidShooter.Update(asteroids, spaceship.position);
+                    asteroidShooter.Update(asteroids, spaceship.rectangle.Center);
                     break;
                 case GameState.Pause:
                     break;

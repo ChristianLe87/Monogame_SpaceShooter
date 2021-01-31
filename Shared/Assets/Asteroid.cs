@@ -20,7 +20,7 @@ namespace Shared
             this.position = startPoint;
             this.targetPoint = targetPoint;
 
-            this.texture2D = Tools.CreateCircleTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Brown, 50);
+            this.texture2D = Tools.Texture.CreateCircleTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Brown, 50);
 
             this.timeCount = 0f;
             this.isActive = true;
@@ -28,31 +28,12 @@ namespace Shared
 
         public void Update()
         {
-            // Implementation
-            {
-                MoveToward();
+            position = Tools.Other.MoveTowards(startPoint: position, endPoint: targetPoint, maxAproximation: 20, steps: 1);
 
-                float maxTime = 15f;
-                if (timeCount > maxTime) isActive = false;
+            float maxTime = 15f;
+            if (timeCount > maxTime) isActive = false;
 
-                timeCount += 1f / WK.Default.FPS;
-            }
-
-
-            // Helpers
-            void MoveToward()
-            {
-                int maxAproximationToTarget = 20;
-                if (position.X - (targetPoint.X - maxAproximationToTarget) < 0)
-                    position.X++;
-                else if (position.X - (targetPoint.X + maxAproximationToTarget) > 0)
-                    position.X--;
-
-                if (position.Y - (targetPoint.Y - maxAproximationToTarget) < 0)
-                    position.Y++;
-                else if (position.Y - (targetPoint.Y + maxAproximationToTarget) > 0)
-                    position.Y--;
-            }
+            timeCount += 1f / WK.Default.FPS;
         }
 
         public void Draw(SpriteBatch spriteBatch)

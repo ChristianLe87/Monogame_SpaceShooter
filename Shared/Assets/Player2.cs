@@ -17,7 +17,7 @@ namespace Shared
 
         public Player2(Point position)
         {
-            texture2D = Tools.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Spaceship);
+            texture2D = Tools.Texture.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Spaceship);
             rectangle = new Rectangle(position.X, position.Y, 100, 100);
         }
 

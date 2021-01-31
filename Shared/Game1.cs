@@ -20,7 +20,7 @@ namespace Shared
         public static bool isMouseVisible;
 
         private static Dictionary<string, IScene> scenes;
-        private static string actualScene = WK.Scene.Menu;
+        private static string actualScene = WK.Scene.GameScene;
 
 
         public Game1()

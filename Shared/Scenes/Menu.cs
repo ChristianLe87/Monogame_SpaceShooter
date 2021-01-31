@@ -19,9 +19,9 @@ namespace Shared
             this.playSceneButton = new Button(
                         rectangle: new Rectangle(300, 300, 150, 50),
                         text: "Play!",
-                        defaultTexture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.LightGray),
-                        mouseOverTexture: Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Gray),
-                        spriteFont: Tools.GenerateFont(Tools.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Font_16), WK.Default.FontCharacters),
+                        defaultTexture: Tools.Texture.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.LightGray),
+                        mouseOverTexture: Tools.Texture.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Gray),
+                        spriteFont: Tools.Font.GenerateFont(Tools.Texture.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Font_16), WK.Default.FontCharacters),
                         fontColor: Color.Black,
                         ButtonID: "playSceneButton");
         }

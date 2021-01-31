@@ -16,7 +16,7 @@ namespace Shared
 
         public AsteroidShooter(int IntervalOfShootingAsterodisInSeconds)
         {
-            texture2D = Tools.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Red, 50, 50);
+            texture2D = Tools.Texture.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Red, 50, 50);
             position = new Point(50, 50);
             points = new Point[]
             {
@@ -35,27 +35,11 @@ namespace Shared
             // Implementation
             {
                 SetTargetPathPoint();
-                MoveTowardTarget();
+                position = Tools.Other.MoveTowards(startPoint: position, endPoint: target, maxAproximation: 0, steps: 1);
                 ShootAsteroid();
             }
 
-
             // Helpers
-            void MoveTowardTarget()
-            {
-                int maxDistanceBetweenTargetAndSpaceship = 0;
-
-                if (position.X - (target.X - maxDistanceBetweenTargetAndSpaceship) < 0)
-                    position.X++;
-                else if (position.X - (target.X + maxDistanceBetweenTargetAndSpaceship) > 0)
-                    position.X--;
-
-                if (position.Y - (target.Y - maxDistanceBetweenTargetAndSpaceship) < 0)
-                    position.Y++;
-                else if (position.Y - (target.Y + maxDistanceBetweenTargetAndSpaceship) > 0)
-                    position.Y--;
-            }
-
             void ShootAsteroid()
             {
                 if (ElapsedTimeOfShootInterval > shootInterval)

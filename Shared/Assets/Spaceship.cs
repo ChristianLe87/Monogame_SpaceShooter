@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -9,15 +8,16 @@ namespace Shared
     public class Spaceship
     {
         Texture2D texture2D;
-        public Rectangle rectangle;
-        public Point position { get => rectangle.Center; }
+        public Rectangle rectangle { get => new Rectangle(position.X - (texture2D.Width / 2), position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
+        private Point position;
         public int Health;
         KeyboardState lastKeyboardState;
 
-        public Spaceship(Point CenterPosition, int Width, int Height)
+        public Spaceship(Point CenterPosition)
         {
-            this.texture2D = Tools.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Spaceship);
-            this.rectangle = new Rectangle(CenterPosition.X - (Width / 2), CenterPosition.Y - (Height / 2), Width, Height);
+            //this.texture2D = Tools.Texture.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Spaceship);
+            this.texture2D = Tools.Texture.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Gray, 50, 50);
+            this.position = CenterPosition;
             this.Health = 100;
             this.lastKeyboardState = Keyboard.GetState();
         }
@@ -26,34 +26,20 @@ namespace Shared
         {
             // Implementation
             {
-                MoveTowardTarget();
+                position = Tools.Other.MoveTowards(position, target.rectangle.Center, 20, 1);
+
                 Shoot();
                 ChecIfGameOver();
             }
-
+            
             // Helpers
-            void MoveTowardTarget()
-            {
-                int maxDistanceBetweenTargetAndSpaceship = 20;
-
-                if (rectangle.Center.X - (target.position.X - maxDistanceBetweenTargetAndSpaceship) < 0)
-                    rectangle.X++;
-                else if (rectangle.Center.X - (target.position.X + maxDistanceBetweenTargetAndSpaceship) > 0)
-                    rectangle.X--;
-
-                if (rectangle.Center.Y - (target.position.Y - maxDistanceBetweenTargetAndSpaceship) < 0)
-                    rectangle.Y++;
-                else if (rectangle.Center.Y - (target.position.Y + maxDistanceBetweenTargetAndSpaceship) > 0)
-                    rectangle.Y--;
-            }
-
             void Shoot()
             {
                 KeyboardState keyboardState = Keyboard.GetState();
 
                 if (keyboardState.IsKeyDown(Keys.Space) && lastKeyboardState.IsKeyUp(Keys.Space))
                 {
-                    bullets.Add(new Bullet(startPoint: position, targetPoint: target.position));
+                    bullets.Add(new Bullet(startPoint: position, targetPoint: target.rectangle.Center));
                 }
 
                 lastKeyboardState = keyboardState;

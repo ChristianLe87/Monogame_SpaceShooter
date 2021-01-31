@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Shared
@@ -16,7 +15,7 @@ namespace Shared
 
         public Bullet(Point startPoint, Point targetPoint)
         {
-            this.texture2D = Tools.CreateCircleTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Black, 10);
+            this.texture2D = Tools.Texture.CreateCircleTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Black, 10);
             this.rectangle = new Rectangle(startPoint.X - texture2D.Width/2, startPoint.Y - texture2D.Height / 2, texture2D.Width, texture2D.Height);
             this.targetPoint = targetPoint;
             this.timeCount = 0f;
@@ -31,7 +30,6 @@ namespace Shared
                 TimeToDestroy();
             }
 
-            // Helpers
             // Helpers
             void MoveTowardTarget()
             {
