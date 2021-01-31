@@ -6,14 +6,14 @@ namespace Shared
     public class Bullet
     {
         Texture2D texture2D;
-        public Rectangle rectangle { get=> new Rectangle(position.X - (texture2D.Width / 2), position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
-        Point position;
-        private Point targetPoint;
+        public Rectangle rectangle { get=> new Rectangle((int)position.X - (texture2D.Width / 2), (int)position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
+        Vector2 position;
+        private Vector2 targetPoint;
         public int Health;
         private float timeCount;
         public bool isActive;
 
-        public Bullet(Point startPoint, Point targetPoint)
+        public Bullet(Vector2 startPoint, Vector2 targetPoint)
         {
             this.texture2D = Tools.Texture.CreateCircleTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Black, 10);
             this.position = startPoint;

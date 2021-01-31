@@ -210,23 +210,22 @@ namespace Shared
             /// <summary>
             /// Move Something in one direcction
             /// </summary>
-            public static Point MoveTowards(Point startPoint, Point endPoint, int maxAproximation, int steps)
+            public static Vector2 MoveTowards(Vector2 startPoint, Vector2 endPoint, int maxAproximation, int steps)
             {
+                
                 // Implementation
                 {
                     if (!true)
                     {
-                        Vector2 sp = startPoint.ToVector2();
-                        Vector2 ep = endPoint.ToVector2();
-
                         // target is right
                         if (endPoint.X - startPoint.X > 0)
                         {
                             // is up
                             if (endPoint.Y - startPoint.Y < 0)
                             {
-                                startPoint.X += steps;
-                                startPoint.Y += (int)Pitagoras_y(1, startPoint.X);
+                                var bla99 = 0;
+                                startPoint.X += (int)Pitagoras_y(steps,steps);
+                                startPoint.Y += steps; //(int)Pitagoras_y(steps, steps);
                             }
                             // is down
                             else if (endPoint.Y - startPoint.Y > 0)
@@ -270,6 +269,11 @@ namespace Shared
                 {
                     // y = (r^2 - x^2)^(1/2)
                     return (float)Math.Sqrt(((r * r) - (x * x)));
+                }
+                float Pitagoras_x(float r, float y)
+                {
+                    // y = (r^2 - x^2)^(1/2)
+                    return (float)Math.Sqrt(((r * r) - (y * y)));
                 }
             }
         }

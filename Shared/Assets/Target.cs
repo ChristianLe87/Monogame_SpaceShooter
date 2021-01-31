@@ -7,10 +7,10 @@ namespace Shared
     public class Target
     {
         Texture2D texture2D;
-        public Rectangle rectangle { get => new Rectangle(position.X - (texture2D.Width / 2), position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
-        Point position;
+        public Rectangle rectangle { get => new Rectangle((int)position.X - (texture2D.Width / 2), (int)position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
+        Vector2 position;
 
-        public Target(Point CenterPosition)
+        public Target(Vector2 CenterPosition)
         {
             //texture2D = Tools.Texture.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Target);
             texture2D = Tools.Texture.CreateCircleTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Black, 25);
@@ -41,8 +41,8 @@ namespace Shared
                 else if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
                     position.X += targetMove;
 
-                position.X = Tools.Other.Clamp(0, WK.Default.CanvasWidth, position.X);
-                position.Y = Tools.Other.Clamp(0, WK.Default.CanvasHeight, position.Y);
+                position.X = Tools.Other.Clamp(0, WK.Default.CanvasWidth, (int)position.X);
+                position.Y = Tools.Other.Clamp(0, WK.Default.CanvasHeight, (int)position.Y);
             }
         }
 

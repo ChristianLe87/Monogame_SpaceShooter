@@ -8,12 +8,12 @@ namespace Shared
     public class Spaceship
     {
         Texture2D texture2D;
-        public Rectangle rectangle { get => new Rectangle(position.X - (texture2D.Width / 2), position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
-        private Point position;
+        public Rectangle rectangle { get => new Rectangle((int)position.X - (texture2D.Width / 2), (int)position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
+        private Vector2 position;
         public int Health;
         KeyboardState lastKeyboardState;
 
-        public Spaceship(Point CenterPosition)
+        public Spaceship(Vector2 CenterPosition)
         {
             //this.texture2D = Tools.Texture.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Spaceship);
             this.texture2D = Tools.Texture.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Gray, 50, 50);
@@ -26,7 +26,7 @@ namespace Shared
         {
             // Implementation
             {
-                position = Tools.Other.MoveTowards(position, target.rectangle.Center, 20, 1);
+                position = Tools.Other.MoveTowards(position, target.rectangle.Center.ToVector2(), 20, 1);
 
                 Shoot();
                 ChecIfGameOver();
@@ -39,7 +39,7 @@ namespace Shared
 
                 if (keyboardState.IsKeyDown(Keys.Space) && lastKeyboardState.IsKeyUp(Keys.Space))
                 {
-                    bullets.Add(new Bullet(startPoint: position, targetPoint: target.rectangle.Center));
+                    bullets.Add(new Bullet(startPoint: position, targetPoint: target.rectangle.Center.ToVector2()));
                 }
 
                 lastKeyboardState = keyboardState;

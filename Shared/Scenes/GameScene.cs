@@ -29,8 +29,8 @@ namespace Shared
         {
             Game1.isMouseVisible = false;
 
-            spaceship = new Spaceship(CenterPosition: new Point(350, 350));
-            target = new Target(CenterPosition: new Point(550, 350));
+            spaceship = new Spaceship(CenterPosition: new Vector2(350, 350));
+            target = new Target(CenterPosition: new Vector2(550, 350));
             asteroids = new List<Asteroid>();
             bullets = new List<Bullet>();
             score = new Label(
@@ -118,7 +118,7 @@ namespace Shared
                         }
                     }
                     //time.Update();
-                    asteroidShooter.Update(asteroids, spaceship.rectangle.Center);
+                    asteroidShooter.Update(asteroids, spaceship.rectangle.Center.ToVector2());
                     break;
                 case GameState.Pause:
                     break;

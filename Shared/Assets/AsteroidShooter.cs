@@ -7,9 +7,9 @@ namespace Shared
     public class AsteroidShooter
     {
         Texture2D texture2D { get; init; }
-        Point position;
-        Point target;
-        Point[] points { get; init; }
+        Vector2 position;
+        Vector2 target;
+        Vector2[] points { get; init; }
         int shootInterval { get; init; }
         float ElapsedTimeOfShootInterval;
         PathPoint targetPathPoint;
@@ -17,20 +17,20 @@ namespace Shared
         public AsteroidShooter(int IntervalOfShootingAsterodisInSeconds)
         {
             texture2D = Tools.Texture.CreateColorTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Red, 50, 50);
-            position = new Point(50, 50);
-            points = new Point[]
+            position = new Vector2(50, 50);
+            points = new Vector2[]
             {
-                new Point(50, 50), // Top left
-                new Point(50, WK.Default.CanvasHeight - 50), // Down left
-                new Point(WK.Default.CanvasWidth-50, WK.Default.CanvasHeight-50), // down right
-                new Point(WK.Default.CanvasWidth-50, 50), // top right
+                new Vector2(50, 50), // Top left
+                new Vector2(50, WK.Default.CanvasHeight - 50), // Down left
+                new Vector2(WK.Default.CanvasWidth-50, WK.Default.CanvasHeight-50), // down right
+                new Vector2(WK.Default.CanvasWidth-50, 50), // top right
             };
             shootInterval = IntervalOfShootingAsterodisInSeconds;
             ElapsedTimeOfShootInterval = 0;
             targetPathPoint = PathPoint.DownLeft;
         }
 
-        public void Update(List<Asteroid> asteroids, Point asteroidTarget)
+        public void Update(List<Asteroid> asteroids, Vector2 asteroidTarget)
         {
             // Implementation
             {
@@ -95,7 +95,7 @@ namespace Shared
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture2D, new Rectangle(position.X, position.Y, texture2D.Width, texture2D.Height), Color.White);
+            spriteBatch.Draw(texture2D, new Rectangle((int)position.X, (int)position.Y, texture2D.Width, texture2D.Height), Color.White);
         }
 
         private enum PathPoint

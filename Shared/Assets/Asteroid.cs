@@ -5,17 +5,17 @@ namespace Shared
 {
     public class Asteroid
     {
-        private Point position;
-        private Point targetPoint;
+        private Vector2 position;
+        private Vector2 targetPoint;
 
         private Texture2D texture2D { get; init; }
-        public Rectangle rectangle { get => new Rectangle(position.X - (texture2D.Width / 2), position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
+        public Rectangle rectangle { get => new Rectangle((int)position.X - (texture2D.Width / 2), (int)position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
 
         private float timeCount;
 
         public bool isActive { get; set; }
 
-        public Asteroid(Point startPoint, Point targetPoint)
+        public Asteroid(Vector2 startPoint, Vector2 targetPoint)
         {
             this.position = startPoint;
             this.targetPoint = targetPoint;
