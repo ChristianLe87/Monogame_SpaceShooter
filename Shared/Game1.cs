@@ -20,7 +20,7 @@ namespace Shared
         public static bool isMouseVisible;
 
         private static Dictionary<string, IScene> scenes;
-        private static string actualScene = WK.Scene.GameScene;
+        private static string actualScene = WK.Scene.TestScene;
 
 
         public Game1()
@@ -46,7 +46,8 @@ namespace Shared
             scenes = new Dictionary<string, IScene>()
             {
                 { WK.Scene.Menu, new Menu() },
-                { WK.Scene.GameScene, new GameScene() }
+                { WK.Scene.GameScene, new GameScene() },
+                { WK.Scene.TestScene, new TestScene() }
             };
 
             // others

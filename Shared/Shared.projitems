@@ -27,6 +27,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Assets\Bullet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Assets\GameOverCanvas.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Assets\Target.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\Tests\TestScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\Tests\TestMoveTowards.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
@@ -34,5 +36,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Assets\" />
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\Interfaces\" />
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\UI\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Scenes\Tests\" />
   </ItemGroup>
 </Project>

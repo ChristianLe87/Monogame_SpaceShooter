@@ -207,7 +207,9 @@ namespace Shared
                 return Number;
             }
 
-
+            /// <summary>
+            /// Move Something in one direcction
+            /// </summary>
             public static Point MoveTowards(Point startPoint, Point endPoint, int maxAproximation, int steps)
             {
                 if (startPoint.X - (endPoint.X - maxAproximation) < 0)
