@@ -17,10 +17,10 @@ namespace Shared
 
         public void Initialize()
         {
-            bullet_1 = new Bullet(startPoint: new Vector2(0, 0), targetPoint: new Vector2(700, 300));
-            bullet_2 = new Bullet(startPoint: new Vector2(0, 300), targetPoint: new Vector2(700, 0));
-            bullet_3 = new Bullet(startPoint: new Vector2(700, 300), targetPoint: new Vector2(0, 0));
-            bullet_4 = new Bullet(startPoint: new Vector2(700, 0), targetPoint: new Vector2(0, 300));
+            //bullet_1 = new Bullet(start: new Vector2(0, 0), direction: new Vector2(700, 300));
+            //bullet_2 = new Bullet(start: new Vector2(0, 300), direction: new Vector2(700, 0));
+            //bullet_3 = new Bullet(start: new Vector2(700, 300), direction: new Vector2(0, 0));
+            //bullet_4 = new Bullet(start: new Vector2(700, 0), direction: new Vector2(0, 300));
         }
 
         public void Update()

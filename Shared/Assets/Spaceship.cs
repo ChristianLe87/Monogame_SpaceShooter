@@ -31,7 +31,7 @@ namespace Shared
                 Shoot();
                 ChecIfGameOver();
             }
-            
+
             // Helpers
             void Shoot()
             {
@@ -39,7 +39,13 @@ namespace Shared
 
                 if (keyboardState.IsKeyDown(Keys.Space) && lastKeyboardState.IsKeyUp(Keys.Space))
                 {
-                    bullets.Add(new Bullet(startPoint: position, targetPoint: target.rectangle.Center.ToVector2()));
+                    bullets.Add(new Bullet(
+                                        texture2D: Tools.Texture.CreateCircleTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Black, 10),
+                                        start: position,
+                                        direction: target.rectangle.Center.ToVector2(),
+                                        steps: 1
+                                        )
+                    );
                 }
 
                 lastKeyboardState = keyboardState;

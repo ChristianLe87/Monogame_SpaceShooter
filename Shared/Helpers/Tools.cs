@@ -43,6 +43,7 @@ namespace Shared
 
                 return subtexture;
             }
+
             /// <summary>
             /// Create a new Texture2D from a Color
             /// </summary>
@@ -61,6 +62,9 @@ namespace Shared
                 return texture2D;
             }
 
+            /// <summary>
+			/// CreateCircleTexture
+			/// </summary>
             public static Texture2D CreateCircleTexture(GraphicsDevice graphicsDevice, Color color, int radius = 1)
             {
                 // Implementation
@@ -83,7 +87,6 @@ namespace Shared
                     texture2D.SetData(circle.ToArray());
 
                     return texture2D;
-
                 }
 
                 // Helpers
@@ -95,9 +98,9 @@ namespace Shared
             }
         }
 
+
         public class Font
         {
-
             /// <summary>
             /// Generate a new font from a Texture2D
             /// </summary>
@@ -176,7 +179,9 @@ namespace Shared
             {
                 return contentManager.Load<SpriteFont>(Path.Combine(folder, fontName));
             }
+
         }
+
 
         public class Sound
         {
@@ -197,22 +202,41 @@ namespace Shared
             }
         }
 
-
-        public class Other
+        public class MyMath
         {
+            /// <summary>
+            /// Calculate inclination
+            /// </summary>
+            public static float M(Vector2 start, Vector2 direction)
+            {
+                float y = direction.Y - start.Y;
+                float x = direction.X - start.X;
+
+                if (x == 0f)
+                    return 0;
+                else
+                    return y / x;
+            }
+
+            public static float B(float x, float y, float m)
+            {
+                return y - (m * x);
+            }
+
             public static int Clamp(int Min, int Max, int Number)
             {
                 if (Number <= Min) return Min;
                 if (Number >= Max) return Max;
                 return Number;
             }
+        }
 
-            /// <summary>
-            /// Move Something in one direcction
-            /// </summary>
-            public static Vector2 MoveTowards(Vector2 startPoint, Vector2 endPoint, int maxAproximation, int steps)
+
+        public class Other
+        {
+            internal static Vector2 MoveTowards(Vector2 startPoint, Vector2 endPoint, int maxAproximation, int steps)
             {
-                
+
                 // Implementation
                 {
                     if (!true)
@@ -224,7 +248,7 @@ namespace Shared
                             if (endPoint.Y - startPoint.Y < 0)
                             {
                                 var bla99 = 0;
-                                startPoint.X += (int)Pitagoras_y(steps,steps);
+                                startPoint.X += (int)Pitagoras_y(steps, steps);
                                 startPoint.Y += steps; //(int)Pitagoras_y(steps, steps);
                             }
                             // is down

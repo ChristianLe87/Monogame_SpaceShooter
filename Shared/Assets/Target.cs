@@ -41,8 +41,8 @@ namespace Shared
                 else if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
                     position.X += targetMove;
 
-                position.X = Tools.Other.Clamp(0, WK.Default.CanvasWidth, (int)position.X);
-                position.Y = Tools.Other.Clamp(0, WK.Default.CanvasHeight, (int)position.Y);
+                position.X = Tools.MyMath.Clamp(0, WK.Default.CanvasWidth, (int)position.X);
+                position.Y = Tools.MyMath.Clamp(0, WK.Default.CanvasHeight, (int)position.Y);
             }
         }
 

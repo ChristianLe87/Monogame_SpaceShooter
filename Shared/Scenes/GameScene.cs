@@ -141,7 +141,8 @@ namespace Shared
                     target.Draw(spriteBatch);
 
                     foreach (var asteroid in asteroids) asteroid.Draw(spriteBatch);
-                    foreach (var bullet in bullets) bullet.Draw(spriteBatch);
+                    foreach (var bullet in bullets)
+                        bullet.Draw(spriteBatch);
 
                     score.Draw(spriteBatch);
                     health.Draw(spriteBatch);
