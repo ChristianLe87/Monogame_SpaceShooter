@@ -229,6 +229,39 @@ namespace Shared
                 if (Number >= Max) return Max;
                 return Number;
             }
+
+
+            /// <summary>
+            /// Return the angle between vector p11 --> p12 and p21 --> p22.
+            /// Angles less than zero are to the left. Angles greater than
+            /// zero are to the right.
+            /// </summary>
+            public static double GetAngleInRadians(Point Point1_Start, Point Point_1_End, Point Point2_Start, Point Pount2_End)
+            {
+                // Code thanks to: http://csharphelper.com/blog/2020/06/find-the-angle-between-two-vectors-in-c/
+
+                // Find the vectors.
+                Point v1 = new Point(Point_1_End.X - Point1_Start.X, Point_1_End.Y - Point1_Start.Y);
+                Point v2 = new Point(Pount2_End.X - Point2_Start.X, Pount2_End.Y - Point2_Start.Y);
+
+                // Calculate the vector lengths.
+                double len1 = Math.Sqrt(v1.X * v1.X + v1.Y * v1.Y);
+                double len2 = Math.Sqrt(v2.X * v2.X + v2.Y * v2.Y);
+
+                // Use the dot product to get the cosine.
+                double dot_product = v1.X * v2.X + v1.Y * v2.Y;
+                double cos = dot_product / len1 / len2;
+
+                // Use the cross product to get the sine.
+                double cross_product = v1.X * v2.Y - v1.Y * v2.X;
+                double sin = cross_product / len1 / len2;
+
+                // Find the angle.
+                double angle = Math.Acos(cos);
+
+                if (sin < 0) angle = -angle;
+                return angle;
+            }
         }
 
 

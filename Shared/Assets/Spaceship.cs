@@ -9,9 +9,10 @@ namespace Shared
     {
         Texture2D texture2D;
         public Rectangle rectangle { get => new Rectangle((int)position.X - (texture2D.Width / 2), (int)position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
-        private Vector2 position;
+        Vector2 position;
         public int Health;
         KeyboardState lastKeyboardState;
+        float rotationDegree = 0f;
 
         public Spaceship(Vector2 CenterPosition)
         {
@@ -30,6 +31,7 @@ namespace Shared
 
                 Shoot();
                 ChecIfGameOver();
+                RotateTowards(target.rectangle.Center);
             }
 
             // Helpers
@@ -56,11 +58,25 @@ namespace Shared
                 if (Health <= 0)
                     GameScene.gameState = GameState.GameOver;
             }
+
+            void RotateTowards(Point target)
+            {
+                rotationDegree = (float)Tools.MyMath.GetAngleInRadians(rectangle.Center, new Point(WK.Default.CanvasWidth, rectangle.Center.Y), rectangle.Center, target);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture2D, rectangle, Color.White);
+            spriteBatch.Draw(
+                            texture: texture2D,
+                            destinationRectangle: rectangle,
+                            sourceRectangle: null,
+                            color: Color.White,
+                            rotation: rotationDegree,
+                            origin: new Vector2(texture2D.Width / 2, texture2D.Height / 2),
+                            effects: SpriteEffects.None,
+                            layerDepth: 0f
+            );
         }
     }
 }
