@@ -15,16 +15,16 @@
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Shared\Content\Player_PNG_300x300.png">
-      <Link>Content\Player_PNG_300x300.png</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Shared\Content\Target_PNG_300x300.png">
-      <Link>Content\Target_PNG_300x300.png</Link>
+    <None Include="..\Shared\Content\Player_PNG_50x50.png">
+      <Link>Content\Player_PNG_50x50.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="..\Shared\Content\MyFont_PNG_130x28.png">
       <Link>Content\MyFont_PNG_130x28.png</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Shared\Content\Target_PNG_300x300.png">
+      <Link>Content\Target_PNG_300x300.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="..\Shared\Content\MyFont_PNG_260x56.png">

@@ -20,7 +20,7 @@
 
         public class Content
         {
-            public static readonly string Spaceship = "Player_PNG_300x300";
+            public static readonly string Spaceship = "Player_PNG_50x50";
             public static readonly string Target = "Target_PNG_300x300";
             public static readonly string Font_16 = "MyFont_PNG_260x56";
             public static readonly string Font_7 = "MyFont_PNG_130x28";
