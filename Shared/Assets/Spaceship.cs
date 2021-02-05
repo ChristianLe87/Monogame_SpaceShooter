@@ -44,7 +44,7 @@ namespace Shared
                                         texture2D: Tools.Texture.CreateCircleTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Black, 10),
                                         start: position,
                                         direction: target.rectangle.Center.ToVector2(),
-                                        steps: 1
+                                        steps: 4
                                         )
                     );
                 }

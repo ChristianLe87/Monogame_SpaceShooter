@@ -33,7 +33,7 @@ namespace Shared
 
             // FPS
             base.IsFixedTimeStep = true;
-            base.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60);
+            base.TargetElapsedTime = TimeSpan.FromSeconds(1d / WK.Default.FPS);
             //base.TargetElapsedTime = new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: 50); // Every frame is render each 50 milliseconds
 
 

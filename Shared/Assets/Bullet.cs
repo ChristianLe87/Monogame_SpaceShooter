@@ -8,26 +8,37 @@ namespace Shared
     {
         Texture2D texture2D;
         Vector2 position;
-        Dir dir;
-        float m;
-        float b;
         int steps;
         TimeSpan autoDestroyTime;
-
-        public int Health;
         public bool isActive;
+        Dir dir;
+        double x;
+        double y;
+
         public Rectangle rectangle { get => new Rectangle((int)position.X - (texture2D.Width / 2), (int)position.Y - (texture2D.Height / 2), texture2D.Width, texture2D.Height); }
 
         public Bullet(Texture2D texture2D, Vector2 start, Vector2 direction, int steps, TimeSpan autoDestroyTime = new TimeSpan())
         {
             this.texture2D = texture2D;
             this.position = start;
-            this.m = Tools.MyMath.M(start, direction);
-            this.b = Tools.MyMath.B(position.X, position.Y, m);
+            //this.b = Tools.MyMath.B(position.X, position.Y, m);
             this.steps = steps;
             this.autoDestroyTime = autoDestroyTime;
-            this.dir = GetDir(direction);
+
+            float m = Tools.MyMath.M(start, direction);
+            this.dir = GetDir(direction, m);
+
             this.isActive = true;
+
+            double radAngle = Tools.MyMath.GetAngleInRadians(
+                                                        Point1_Start: start.ToPoint(),
+                                                        Point_1_End: new Point(WK.Default.CanvasWidth, (int)start.Y),
+                                                        Point2_Start: start.ToPoint(),
+                                                        Pount2_End: direction.ToPoint()
+            );
+
+            this.x = steps * Math.Cos(radAngle);
+            this.y = steps * Math.Sin(radAngle);
         }
 
         public void Update()
@@ -77,25 +88,25 @@ namespace Shared
                     position.X -= steps;
                     break;
                 case Dir.UpLeft:
-                    position.X -= steps;
-                    position.Y = (m * position.X) + b;
+                    position.X += (float)x;
+                    position.Y += (float)y;
                     break;
                 case Dir.DownLeft:
-                    position.X -= steps;
-                    position.Y = (m * position.X) + b;
+                    position.X += (float)x;
+                    position.Y += (float)y;
                     break;
                 case Dir.UpRight:
-                    position.X += steps;
-                    position.Y = (m * position.X) + b;
+                    position.X += (float)x;
+                    position.Y += (float)y;
                     break;
                 case Dir.DownRight:
-                    position.X += steps;
-                    position.Y = (m * position.X) + b;
+                    position.X += (float)x;
+                    position.Y += (float)y;
                     break;
             }
         }
 
-        private Dir GetDir(Vector2 direction)
+        private Dir GetDir(Vector2 direction, float m)
         {
             // is inclined
             if (m != 0)
@@ -137,25 +148,24 @@ namespace Shared
                 // go up
                 if (direction.X == position.X && direction.Y - position.Y < 0)
                 {
-                    dir = Dir.Up;
+                    return Dir.Up;
                 }
                 // go down
                 else if (direction.X == position.X && direction.Y - position.Y > 0)
                 {
-                    dir = Dir.Down;
+                    return Dir.Down;
                 }
                 // go right
                 else if (direction.Y == position.Y && direction.X - position.X > 0)
                 {
-                    dir = Dir.Right;
+                    return Dir.Right;
                 }
                 // go left
                 else if (direction.Y == position.Y && direction.X - position.X < 0)
                 {
-                    dir = Dir.Left;
+                    return Dir.Left;
                 }
             }
-
             return Dir._;
         }
 
