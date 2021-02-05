@@ -10,7 +10,7 @@ namespace Shared
     {
         Spaceship spaceship;
         Target target;
-        List<Asteroid> asteroids;
+        List<Bullet> asteroids;
         List<Bullet> bullets;
         Label score;
         HealthBar health;
@@ -31,7 +31,7 @@ namespace Shared
 
             spaceship = new Spaceship(CenterPosition: new Vector2(350, 350));
             target = new Target(CenterPosition: new Vector2(550, 350));
-            asteroids = new List<Asteroid>();
+            asteroids = new List<Bullet>();
             bullets = new List<Bullet>();
             score = new Label(
                 rectangle: new Rectangle(0, 0, 200, 50),

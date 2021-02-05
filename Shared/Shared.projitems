@@ -22,7 +22,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\UI\Button.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\UI\HealthBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\UI\Label.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Assets\Asteroid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Assets\AsteroidShooter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Assets\Bullet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Assets\GameOverCanvas.cs" />

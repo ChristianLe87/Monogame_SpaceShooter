@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -30,7 +31,7 @@ namespace Shared
             targetPathPoint = PathPoint.DownLeft;
         }
 
-        public void Update(List<Asteroid> asteroids, Vector2 asteroidTarget)
+        public void Update(List<Bullet> asteroids, Vector2 asteroidTarget)
         {
             // Implementation
             {
@@ -44,7 +45,14 @@ namespace Shared
             {
                 if (ElapsedTimeOfShootInterval > shootInterval)
                 {
-                    asteroids.Add(new Asteroid(startPoint: position, targetPoint: asteroidTarget));
+                    Bullet asteroid = new Bullet(
+                                            texture2D: Tools.Texture.CreateCircleTexture(Game1.graphicsDeviceManager.GraphicsDevice, Color.Brown, 20),
+                                            start: position,
+                                            direction: asteroidTarget,
+                                            steps: 2,
+                                            autoDestroyTime: new TimeSpan(0, 0, 10)
+                    );
+                    asteroids.Add(asteroid);
                     ElapsedTimeOfShootInterval = 0;
                 }
                 else
