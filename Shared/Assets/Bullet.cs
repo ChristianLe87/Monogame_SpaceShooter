@@ -8,10 +8,8 @@ namespace Shared
     {
         Texture2D texture2D;
         Vector2 position;
-        int steps;
         TimeSpan autoDestroyTime;
         public bool isActive;
-        Dir dir;
         double x;
         double y;
 
@@ -21,13 +19,7 @@ namespace Shared
         {
             this.texture2D = texture2D;
             this.position = start;
-            //this.b = Tools.MyMath.B(position.X, position.Y, m);
-            this.steps = steps;
             this.autoDestroyTime = autoDestroyTime;
-
-            float m = Tools.MyMath.M(start, direction);
-            this.dir = GetDir(direction, m);
-
             this.isActive = true;
 
             double radAngle = Tools.MyMath.GetAngleInRadians(
@@ -52,12 +44,18 @@ namespace Shared
             }
 
             // Helpers
+            void Move()
+            {
+                position.X += (float)x;
+                position.Y += (float)y;
+            }
+
             void TimeToDestroy()
             {
                 if (autoDestroyTime.TotalMilliseconds != 0)
                 {
-                    var bla = new TimeSpan(0, 0, 0, 0, (int)((1f / (WK.Default.FPS)) * 1000));
-                    autoDestroyTime = autoDestroyTime.Subtract(bla);
+                    TimeSpan timeSpan = new TimeSpan(0, 0, 0, 0, (int)((1f / (WK.Default.FPS)) * 1000));
+                    autoDestroyTime = autoDestroyTime.Subtract(timeSpan);
 
                     if (autoDestroyTime.TotalMilliseconds <= 0) isActive = false;
                 }
@@ -67,119 +65,7 @@ namespace Shared
         public void Draw(SpriteBatch spriteBatch)
         {
             if (isActive == false) return;
-
             spriteBatch.Draw(texture2D, rectangle, Color.White);
-        }
-
-        private void Move()
-        {
-            switch (dir)
-            {
-                case Dir.Up:
-                    position.Y -= steps;
-                    break;
-                case Dir.Down:
-                    position.Y += steps;
-                    break;
-                case Dir.Right:
-                    position.X += steps;
-                    break;
-                case Dir.Left:
-                    position.X -= steps;
-                    break;
-                case Dir.UpLeft:
-                    position.X += (float)x;
-                    position.Y += (float)y;
-                    break;
-                case Dir.DownLeft:
-                    position.X += (float)x;
-                    position.Y += (float)y;
-                    break;
-                case Dir.UpRight:
-                    position.X += (float)x;
-                    position.Y += (float)y;
-                    break;
-                case Dir.DownRight:
-                    position.X += (float)x;
-                    position.Y += (float)y;
-                    break;
-            }
-        }
-
-        private Dir GetDir(Vector2 direction, float m)
-        {
-            // is inclined
-            if (m != 0)
-            {
-                // Go left
-                if (direction.X - position.X < 0)
-                {
-                    // go up
-                    if (direction.Y - position.Y < 0)
-                    {
-                        return Dir.UpLeft;
-                    }
-                    // go down
-                    else if (direction.Y - position.Y > 0)
-                    {
-                        return Dir.DownLeft;
-                    }
-                }
-
-                // go right
-                else if (direction.X - position.X > 0)
-                {
-                    // go up
-                    if (direction.Y - position.Y < 0)
-                    {
-                        return Dir.UpRight;
-                    }
-                    // go down
-                    else if (direction.Y - position.Y > 0)
-                    {
-                        return Dir.DownRight;
-                    }
-                }
-            }
-
-            // is horizontal or vertical
-            else if (m == 0)
-            {
-                // go up
-                if (direction.X == position.X && direction.Y - position.Y < 0)
-                {
-                    return Dir.Up;
-                }
-                // go down
-                else if (direction.X == position.X && direction.Y - position.Y > 0)
-                {
-                    return Dir.Down;
-                }
-                // go right
-                else if (direction.Y == position.Y && direction.X - position.X > 0)
-                {
-                    return Dir.Right;
-                }
-                // go left
-                else if (direction.Y == position.Y && direction.X - position.X < 0)
-                {
-                    return Dir.Left;
-                }
-            }
-            return Dir._;
-        }
-
-        enum Dir
-        {
-            Up,
-            Down,
-            Right,
-            Left,
-            UpLeft,
-            DownLeft,
-            UpRight,
-            DownRight,
-            _
         }
     }
 }
