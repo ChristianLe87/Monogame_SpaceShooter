@@ -16,7 +16,8 @@ namespace Shared
 
         public Spaceship(Vector2 CenterPosition)
         {
-            this.texture2D = Tools.Texture.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Spaceship);
+            //this.texture2D = Tools.Texture.GetTexture(Game1.graphicsDeviceManager.GraphicsDevice, Game1.contentManager, WK.Content.Spaceship);
+            this.texture2D = Tools.Texture.CreateTriangle(Game1.graphicsDeviceManager.GraphicsDevice, Color.Gray,50, 30);
             this.position = CenterPosition;
             this.Health = 100;
             this.lastKeyboardState = Keyboard.GetState();

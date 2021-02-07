@@ -96,6 +96,52 @@ namespace Shared
                     return (float)Math.Sqrt(((x * x) + (y * y)));
                 }
             }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            public static Texture2D CreateTriangle(GraphicsDevice graphicsDevice, Color color, int Width, int Height)
+            {
+                List<Color> colors = new List<Color>();
+
+                Point p1 = new Point(0, 0); // top
+                Point p2 = new Point(Width, Height / 2); // middle
+                Point p3 = new Point(0, Height); // down
+
+                float m1 = Tools.MyMath.M(p1.ToVector2(), p2.ToVector2());
+                float m2 = Tools.MyMath.M(p3.ToVector2(), p2.ToVector2());
+
+                for (int h = 0; h < Height; h++)
+                {
+                    for (int w = 0; w < Width; w++)
+                    {
+                        if (h < Height / 2)
+                        {
+                            int result = (int)(m1 * w + p1.Y);
+
+                            if (result <= h)
+                                colors.Add(color);
+                            else
+                                colors.Add(Color.Transparent);
+                        }
+                        else
+                        {
+                            int result = (int)(m2 * w + p3.Y);
+
+                            if (result >= h)
+                                colors.Add(color);
+                            else
+                                colors.Add(Color.Transparent);
+                        }
+
+                    }
+                }
+
+                Texture2D texture2D = new Texture2D(graphicsDevice, Width, Height, false, SurfaceFormat.Color);
+                texture2D.SetData(colors.ToArray());
+
+                return texture2D;
+            }
         }
 
 
